@@ -1,0 +1,9 @@
+.block{
+    display: inline;
+    font-size: 30px;
+    border: 2px;
+    border-style: solid;
+    margin: 20px;
+    border-color:green;
+    background-color: rgb(0, 0, 0);
+}
