@@ -44,10 +44,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         let gameData = {
+            'state':2, // 0 未开始  1 进行中 2结束
             'Ugid': "098F6BCD4621D373CADE4E832627B4F6",
             'Game_Info': {
                 'u1': "Coaixy",
                 'u2': "Xiaoxinyo",
+                'win':"Coaixy",
                 'map': "0-1#1-2#2-1#3-2#4-1#5-2#6-1#7-2#8-1" // 0-1# // 地址-玩家序列#地址-玩家序列
             }
         }
@@ -57,20 +59,25 @@
             mapData[i] = blocks[i]
             mapData[i]
         }
-        render()
-        function render() {
-            let renderData = gameData.Game_Info.map.split("#")
-            for (let i = 0; i < 9; i++) {
-                setTimeout(() => {
-                    let temp =renderData[i].split("-")
-                    if (temp[1] == "1") { //red
-                        mapData[temp[0]].style.backgroundColor = "red"
-                    } else { //blue
-                        mapData[temp[0]].style.backgroundColor = "blue"
-                    }
-                }, 500*i);
-            }
-        }
+        // render()
+        // function render() {
+        //     //页面渲染
+        //     document.title = "对局回放-"+gameData.Ugid+"-"+gameData.Game_Info.win
+        //     document.getElementById("user-1").innerHTML = gameData.Game_Info.u1
+        //     document.getElementById("user-2").innerHTML = gameData.Game_Info.u2
+        //     //重放
+        //     let renderData = gameData.Game_Info.map.split("#")
+        //     for (let i = 0; i < 9; i++) {
+        //         setTimeout(() => {
+        //             let temp =renderData[i].split("-")
+        //             if (temp[1] == "1") { //red
+        //                 mapData[temp[0]].style.backgroundColor = "red"
+        //             } else { //blue
+        //                 mapData[temp[0]].style.backgroundColor = "blue"
+        //             }
+        //         }, 500*i);
+        //     }
+        // }
     </script>
 </body>
 

@@ -9,14 +9,19 @@ HOST = '127.0.0.1'
 PORT = 5000
 
 
-async def handle(websocket):
-    print('连接成功')
+async def user_handle(websocket):
+    data = await websocket.recv()
+    data = str(data)
+    datas = data.split("-") # 1:userName 2: password
+    
 
 
 async def run(websocket, path):
     while True:
         try:
-            await handle(websocket)
+            # await handle(websocket)
+            if path == "user":
+                await user_handle(websocket)
         except websockets.ConnectionClosed:
             print('断开连接')
             break
