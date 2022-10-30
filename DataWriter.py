@@ -1,18 +1,35 @@
 import json
 import sys
 
-class DataWriter:
-    write_type = 0 # 0：写 1：读取
-    game_type = 0  # 0:用户信息，1:对局信息 2:对局列表
-    path = sys.path[0]
-    data = dict()
 
-    def __init__(self, type):
-        self.game_type = type
-        if self.game_type == 0:
-            self.path = self.path + "\\user_info"
-        elif self.game_type == 1:
-            self.path = self.path + "\\game_info"
-        else:
-            self.path = self.path + "\\game_info\\list.txt"
-    
+class DataWriter:
+    game_type = 0  # 0:用户信息，1:对局信息 2:对局列表
+    paths = [sys.path[0] + "\\user_info", sys.path[0] +
+             "\\game_info", sys.path[0] + "\\game_info\\list.txt"]
+    path = paths[game_type]
+
+    def __init__(self):
+        pass
+
+    def getUserInfo(self, user_name):
+        if self.game_type != 0:
+            self.game_type = 0
+            self.path = self.paths[self.game_type]
+        with open(self.path+"\\"+user_name+".json", 'r') as f:
+            data = json.load(f)
+            return data
+
+    def getGameInfo(self, ugid):
+        if self.game_type != 1:
+            self.game_type = 1
+            self.path = self.paths[self.game_type]
+        with open(self.path+"\\"+ugid+".json", 'r') as f:
+            data = json.load(f)
+            return data
+
+    def getGameList(self):
+        if self.game_type != 2:
+            self.game_type = 2
+            self.path = self.paths[self.game_type]
+        with open(self.path, 'r') as f:
+            return f.read().split("\n")

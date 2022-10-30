@@ -15,7 +15,7 @@
             欢迎来到#来参与战斗吧
         </div>
     </div>
-    <div style="" class="container">
+    <div class="container">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">账号</span>
@@ -41,14 +41,23 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        var ugid = ""
         function login() {
             const ws = new WebSocket('ws://127.0.0.1:5000/user');
             let userName = document.getElementById("id").value
             let userPwd = document.getElementById("pwd").value
             ws.onopen = function (evt) {
                 ws.send(userName+"-"+userPwd)
-                ws.close()
             };
+            ws.onmessage = function(evt){
+                if(evt.data != ""){
+                    ugid = evt.data
+                    ws.close()
+                    
+                }else{
+                    alert("未知错误")
+                }
+            }
         }
     </script>
 </body>

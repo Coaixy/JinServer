@@ -2,19 +2,26 @@
 # Author: Coaixy
 
 import asyncio
+from hashlib import md5
+import time
 import websockets
-import json
+
+from DataWriter import DataWriter
 
 HOST = '127.0.0.1'
 PORT = 5000
-
+dw = DataWriter()
 
 async def user_handle(websocket):
     data = await websocket.recv()
     data = str(data)
     datas = data.split("-") # 1:userName 2: password
-
-    
+    if dw.getUserInfo(datas[0])['password'] == datas[1]:
+        temp = str(time.time()).encode('utf-8')
+        temp = str(md5(temp).hexdigest())
+        await websocket.send(temp)
+    else:
+        await websocket.send("")
 
 
 async def run(websocket, path):
