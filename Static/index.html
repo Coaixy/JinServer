@@ -30,9 +30,9 @@
         </div>
         <label>如若没有将自动创建</label>
         <br><br>
-        <button type="button" class="btn btn-outline-success" onclick="login()">创建</button>
+        <button type="button" class="btn btn-outline-success" onclick="login(1)">创建</button>
         <br><br>
-        <button type="button" class="btn btn-outline-info" onclick="login()">加入</button>
+        <button type="button" class="btn btn-outline-info" onclick="login(2)">加入</button>
     </div>
     <div class="fixed-bottom">
         <div class="alert alert-dark" role="alert">
@@ -42,20 +42,21 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         var ugid = ""
-        function login() {
+        function login(arg) {
             const ws = new WebSocket('ws://127.0.0.1:5000/user');
             let userName = document.getElementById("id").value
             let userPwd = document.getElementById("pwd").value
             ws.onopen = function (evt) {
-                ws.send(userName+"-"+userPwd)
+                ws.send(userName+"-"+userPwd+"-"+arg)
             };
             ws.onmessage = function(evt){
-                if(evt.data != ""){
+                if(evt.data != ""){ //创建
                     ugid = evt.data
                     ws.close()
                     
-                }else{
-                    alert("未知错误")
+                }else{ //加入
+                    ugid = evt.data
+                    
                 }
             }
         }

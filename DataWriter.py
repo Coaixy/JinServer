@@ -33,3 +33,15 @@ class DataWriter:
             self.path = self.paths[self.game_type]
         with open(self.path, 'r') as f:
             return f.read().split("\n")
+
+    def createGame(self, ugid, user_name):
+        with open(self.paths[2], 'w+') as f:
+            f.write(f.read()+"\n"+ugid)
+        data = {}
+        with open(self.paths[1]+"\\template.json", 'r') as f:
+            data = json.load(f)
+        data['state'] = "1"
+        data['Ugid'] = ugid
+        data['Game_Info']['u1'] = user_name
+
+    
