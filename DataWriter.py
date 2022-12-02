@@ -43,5 +43,5 @@ class DataWriter:
         data['state'] = "1"
         data['Ugid'] = ugid
         data['Game_Info']['u1'] = user_name
-
+        
     
